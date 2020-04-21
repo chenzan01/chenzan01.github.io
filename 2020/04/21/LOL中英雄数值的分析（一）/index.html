@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+  <!-- Html Head Tag-->
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Chen Zan">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="LOL中英雄数值的分析（一）"/>
+  <meta property="og:description" content="" />
+  <meta property="og:site_name" content="Game Numerical Analysis"/>
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="http://yoursite.com"/>
+  
+    <link rel="alternate" href="/atom.xml" title="Game Numerical Analysis" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <!-- Site Title -->
+  <title>Game Numerical Analysis</title>
+
+  <!-- Bootstrap CSS -->
+  
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+  <!-- Custom CSS -->
+  
+  
+<link rel="stylesheet" href="/css/style.light.css">
+
+
+  <!-- Google Analytics -->
+  
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body>
+    <!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/default-banner-dark.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">LOL中英雄数值的分析（一）</p>
+          <p class="subtitle"></p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  Home
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  Archives
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://github.com/<your-github-username>" target="_blank" rel="noopener">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="mailto:<your-email-address>">
+                  
+                  Email
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By Chen Zan</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">2020-04-21</span>
+            <span class="time">16:54:01</span>
+          </span>
+          
+        </div>
+        <!-- Tags -->
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <hr>
+<p>#英雄联盟数值分析（一）<br>##英雄联盟（League of Legends）<br><img src="C:\Users\10102\Downloads\召唤师峡谷.jpg" alt="召唤师峡谷（英雄联盟游戏地图）" style="zoom: 33%;" /><br>英雄联盟，是一款风靡全球的MOBA类竞技游戏。一局游戏时长通常在20-40分钟，蓝、红双方各有五名队员，推倒敌方的中央枢纽水晶即可获得胜利。这里假设目标读者都对英雄联盟/DOTA类游戏有了一定的了解，所以不再对对线、打野、补刀、兵线等基础名词做过多诠释。《英雄联盟》作为一款5V5公平对战网游，拥有着数百个英雄、装备，同时还有独特的符文系统、召唤师技能系统，游戏数值必然是设计《英雄联盟》游戏里的重头戏，一旦数值失去平衡，那么对于这款竞技游戏的影响将会是毁灭性的，下面，我们就来开始探索《英雄联盟》中数值的奥秘。</p>
+<p><strong>一、基础属性</strong></p>
+<hr>
+<p>续航型属性：<br>生命值<br>生命回复<br>法力值<br>法力回复<br>生命偷取<br>法术吸血<br>移动速度   </p>
+<p>攻势型属性：<br>攻击力<br>攻击速度<br>攻击距离<br>暴击几率<br>暴击伤害<br>护甲穿透<br>法术强度<br>法术穿透   </p>
+<p>防御型属性：<br>护甲值<br>魔法抗性<br>韧性<br>闪避几率 </p>
+<p>功能型属性：<br>冷却缩减  </p>
+<p>何谓“基础属性”？基础属性就是固定的，静态的属性，在每一局游戏开始之前，已经被固定好的数值。基础属性作为每个英雄最基本的属性，基本确定了这个英雄的功能以及定位。看三个英雄的对比</p>
+<table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th align="center">惩戒之箭</th>
+<th align="center">寒冰射手</th>
+<th align="center">圣枪游侠</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">生命值</td>
+<td align="center">500(+86)</td>
+<td align="center">539（+85）</td>
+<td align="center">571(+86)</td>
+</tr>
+<tr>
+<td align="center">法力值</td>
+<td align="center">360(+ 33)</td>
+<td align="center">280（+32）</td>
+<td align="center">321(+38)</td>
+</tr>
+<tr>
+<td align="center">攻击力</td>
+<td align="center">61(+ 3.11)</td>
+<td align="center">61（+2.96）</td>
+<td align="center">64(+3.11)</td>
+</tr>
+<tr>
+<td align="center">攻击速度</td>
+<td align="center">0.66 (+1.94%)</td>
+<td align="center">0.66（+3.33%）</td>
+<td align="center">0.64（+2.12%）</td>
+</tr>
+<tr>
+<td align="center">攻击距离</td>
+<td align="center">575</td>
+<td align="center">600</td>
+<td align="center">500</td>
+</tr>
+<tr>
+<td align="center">护甲值</td>
+<td align="center">27(+ 3.4)</td>
+<td align="center">26（+3.4）</td>
+<td align="center">28（+3）</td>
+</tr>
+<tr>
+<td align="center">生命回复/5秒</td>
+<td align="center">5.05(+ 0.55)</td>
+<td align="center">3.5（+0.55）</td>
+<td align="center">5.75（+0.65）</td>
+</tr>
+<tr>
+<td align="center">法力回复/5秒</td>
+<td align="center">8(+ 0.8)</td>
+<td align="center">6.972（+0.4）</td>
+<td align="center">7.7（+0.7）</td>
+</tr>
+<tr>
+<td align="center">魔法抗性</td>
+<td align="center">30(+ 0.5)</td>
+<td align="center">30（+0.5）</td>
+<td align="center">30（+0.5）</td>
+</tr>
+<tr>
+<td align="center">移动速度</td>
+<td align="center">330</td>
+<td align="center">325</td>
+<td align="center">335</td>
+</tr>
+</tbody></table>
+<p>（数据来源：英雄联盟游戏内实时数据。版本：10.8）</p>
+<p>通过计算，可以得出18级时，三位英雄的基础属性：</p>
+<table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th align="center">惩戒之箭</th>
+<th align="center">寒冰射手</th>
+<th align="center">圣枪游侠</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">生命值</td>
+<td align="center">1962</td>
+<td align="center">1984</td>
+<td align="center">2033</td>
+</tr>
+<tr>
+<td align="center">法力值</td>
+<td align="center">921</td>
+<td align="center">824</td>
+<td align="center">967</td>
+</tr>
+<tr>
+<td align="center">攻击力</td>
+<td align="center">113.87</td>
+<td align="center">111.32</td>
+<td align="center">116.87</td>
+</tr>
+<tr>
+<td align="center">攻击速度</td>
+<td align="center">0.99</td>
+<td align="center">1.11</td>
+<td align="center">0.98</td>
+</tr>
+<tr>
+<td align="center">攻击距离</td>
+<td align="center">575</td>
+<td align="center">600</td>
+<td align="center">500</td>
+</tr>
+<tr>
+<td align="center">护甲值</td>
+<td align="center">84.8</td>
+<td align="center">83.8</td>
+<td align="center">79</td>
+</tr>
+<tr>
+<td align="center">生命回复/5秒</td>
+<td align="center">14.4</td>
+<td align="center">12.85</td>
+<td align="center">16.8</td>
+</tr>
+<tr>
+<td align="center">法力回复/5秒</td>
+<td align="center">21.6</td>
+<td align="center">13.77</td>
+<td align="center">19.6</td>
+</tr>
+<tr>
+<td align="center">魔法抗性</td>
+<td align="center">38.5</td>
+<td align="center">38.5</td>
+<td align="center">38.5</td>
+</tr>
+<tr>
+<td align="center">移动速度</td>
+<td align="center">330</td>
+<td align="center">325</td>
+<td align="center">335</td>
+</tr>
+</tbody></table>
+<p>从表中可以看出，同样作为射手，维鲁斯、艾希、圣枪游侠存在着明显的基础属性上的区别。英雄的核心玩法无非是技能的组合、输出的时机、走位的巧妙，完全是靠玩家的个人能力的发挥，那么为什么要调整英雄的基础属性呢?比如射手，直接把所有基础属性都设置成一样的，我作为设计师接下来只需要在技能伤害，技能组合上下功夫平衡就行了，为什么还需要多加一项需要平衡的基础属性呢？</p>
+<p>基础属性可以影响到游戏初期的英雄定位以及节奏，确定英雄在游戏开始时应该做什么。</p>
+<p>维鲁斯前期很弱势，需要在兵线后利用射程远的优势偷伤害；艾希前期强度适中，可以适当对弱势adc进行压制；卢锡安前期强势，适合打法激进迫切想要扩大优势的玩家……基础属性奠定了每只英雄打法的基础，在前期只有一到两个技能，技能组合带来的影响不明显时，基础属性潜移默化的影响着玩家以后的每一步行动。</p>
+<p>例如大红药鳄鱼时期：出门250大红药，吃一组野怪上线，2级红怒磕一瓶大红药直接完成对线单杀。RNG战队的神超使用鳄鱼很熟练，直接让当时如日中天的韩国SKT战队3ban鳄鱼，可见鳄鱼的强势之处。大红药鳄鱼拥有1级吃一组野怪上线并且2级单杀的能力，基础属性的起到了决定性的作用。</p>
+<p>再来看基础属性其中最特别的一项：攻击速度。</p>
+<p>在英雄的基础属性中，所有其他的属性都是呈固定数值增长的，只有攻击速度是按照百分比的方式增长的。假设现在一只18级的维鲁斯目标假人进行攻击（平A），目标假人0护甲，0闪避几率；维鲁斯对目标假人的伤害计算公式：<br>$$<br>伤害=[攻击力+暴击几率<em>攻击力</em>暴击额外百分比伤害+装备等带来的平a特效]*攻击速度<br>$$<br>因此，各项属性对于总伤害的影响：攻击速度&gt;攻击力=平A特效&gt;暴击几率=暴击额外百分比伤害。攻击速度对于最终输出的影响最大。而且，百分比成长方式会让不同英雄之间的攻击速度差距扩的越来越大。维鲁斯、艾希、卢锡安三只英雄在同为一级时，攻速的差别为10ms级，但是到18级时攻速差别达到了100ms级，这已经是非常大的影响了。因此，在基础属性中加入百分比攻速成长，可以有效抑制一些奇怪的现象：一些本该靠技能输出的英雄，由于成长攻速那10ms级的差距，导致它在堆攻速装方面的表现异常优异以至于英雄的定位发生改变（如：卡牌大师，狂暴之心）所以，平衡基础属性不仅可以带来游戏初期的英雄节奏，甚至可以影响到英雄的出装思路。</p>
+<p>不同的基础属性从游戏初期开始到游戏结束，带给了游戏无限的可能，这就是平衡英雄基础属性的艺术。</p>
+<hr>
+<p>title: LOL中英雄数值的分析（一）<br>date: 2020-04-21 09:45:19<br>author: 陈赞</p>
+<hr>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/levblanc">Levblanc.</a>
+          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
+        <p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+
+<script src="/js/highlight.pack.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+  </body>
+</html>
+
